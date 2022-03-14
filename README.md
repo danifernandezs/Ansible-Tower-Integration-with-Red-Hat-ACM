@@ -53,3 +53,46 @@ Applied resources and operations:
 - Placement Rule
 - Managed clusters patched
 
+## Default integration
+
+All the integration needs use an OpenShift secret, this secret contains the Ansible Tower API url and the token to be used.
+
+This secret is needed in all namespaces that going to be execute a remote Ansible Job Template.
+
+## Setting up Authentication
+
+In order to allow RHACM to access Ansible Tower you must set up a Namespace scoped secret for RHACM to use. RHACM uses the secret to authenticate against the Ansible Tower instance. The secret contains the Ansible Tower URL and Access Token.
+
+To create the secret, navigate to **Credentials** -> **Add credentials** -> **Red Hat Ansible Automation Platform** in the RHACM UI and fill the next fields
+
+- Credentials name
+- Namespace
+
+Press **Next**.
+
+At the next screen, specify the **Ansible Tower host** and **Ansible Tower token**.
+
+Press **Next**. Review the information, and press on **Add**.
+
+## Simple AnsibleJob
+
+Since the Ansible Automation Platform Resource Operator is running and listening to all AnsibleJob resource, you can invoke it to execute an Ansible Tower Template at specified instance.
+
+````bash
+oc create ns individual-ansible-job
+````
+````bash
+---
+apiVersion: tower.ansible.com/v1alpha1
+kind: AnsibleJob
+metadata:
+  generateName: ansible-notification-
+  namespace: individual-ansible-job
+spec:
+  tower_auth_secret: tower
+  job_template_name: Remote Notificator
+  extra_vars:
+    triggered_by: Aura
+    notification: email
+    to: danifernandezs@redhat.com
+````
