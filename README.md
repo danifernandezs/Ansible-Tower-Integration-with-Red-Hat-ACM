@@ -96,3 +96,39 @@ spec:
     notification: email
     to: danifernandezs@redhat.com
 ````
+
+## Ansible Tower Governance Integration
+
+In this example you will create a policy that monitors whether a _forbidden namespace_ exists at managed clusters.
+
+If the namespace exists a violation will be initiated. Once the violation is initiated an Ansible Job Template will be triggered.
+
+````bash
+oc create ns rhacm-policies
+````
+
+### Configuring the Policy
+
+The next Policy will initiate an alert if a namespace with the name `forbidden-namespace` is present in the cluster. Apply the policy to the hub cluster -
+
+```
+oc apply -f rhacm-policies/policy.yaml
+```
+
+After creating the policy, make sure that the policy works as expected. Create a namespace with the name `forbidden-namespace`, at a desired managed cluster.
+
+````bash
+oc create namespace forbidden-namespace
+````
+
+### Configuring PolicyAutomation
+
+Now that a policy is configured, create a PolicyAutomation object that will initiate an Ansible Job that will fired.
+
+````bash
+oc apply -f rhacm-policies/policyautomation.yaml
+````
+![](rhacm-policies/img/PolicyAutomation01.png)
+![](rhacm-policies/img/PolicyAutomation02.png)
+
+

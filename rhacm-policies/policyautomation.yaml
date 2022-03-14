@@ -1,0 +1,15 @@
+---
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicyAutomation
+metadata:
+  name: policy-remove-dangerous-namespace-policy-automation
+  namespace: rhacm-policies
+spec:
+  automationDef:
+    extra_vars:
+      message: Forbidden namespace detected
+    name: Remote Notificator
+    secret: policies-tower
+    type: AnsibleJob
+  mode: once
+  policyRef: policy-remove-dangerous-namespace
