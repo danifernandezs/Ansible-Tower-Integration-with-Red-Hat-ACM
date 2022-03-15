@@ -132,3 +132,66 @@ oc apply -f rhacm-policies/policyautomation.yaml
 ![](rhacm-policies/img/PolicyAutomation02.png)
 
 
+## RHACM Automation Template
+
+You can create prehook and posthook AnsibleJob instances that occur before or after creating or upgrading your clusters. 
+
+Configuring prehook and posthook jobs for cluster destroy, and cluster scale actions are not supported.
+
+You must specify the Ansible job template that you want to use for a cluster when you create the cluster. To specify the template when creating a cluster, select the Ansible template that you want to apply to the cluster in the Automation step. If there are no Ansible templates, click Add automation template to create one.
+
+**Infrastructure** -> **Automation** 
+
+![](rhacm-automation/img/AutomationTemplate01.png)
+![](rhacm-automation/img/AutomationTemplate02.png)
+![](rhacm-automation/img/AutomationTemplate03.png)
+
+A ClusterCurator resource as example:
+
+````bash
+---
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: ClusterCurator
+metadata:
+  name: cloud-automation-template
+  namespace: hive
+spec:
+  destroy:
+    posthook: []
+    prehook: []
+    towerAuthSecret: hive-tower
+  install:
+    posthook:
+      - extra_vars: {}
+        name: Clusters Interconnections
+      - extra_vars:
+          via: Slack
+          hook: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+        name: Remote Notificator
+    prehook:
+      - extra_vars: {}
+        name: Open Network Firewalls
+      - extra_vars:
+          type: NLB
+        name: LoadBalancers provisioning
+      - extra_vars: {}
+        name: Remote Notificator
+    towerAuthSecret: hive-tower
+  scale:
+    posthook: []
+    prehook: []
+    towerAuthSecret: hive-tower
+  upgrade:
+    posthook:
+      - extra_vars:
+          via: Slack
+          hook: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+        name: Remote Notificator
+    prehook:
+      - extra_vars: {}
+        name: Open Network Firewalls
+      - extra_vars: {}
+        name: Remote Notificator
+    towerAuthSecret: hive-tower
+````
+
