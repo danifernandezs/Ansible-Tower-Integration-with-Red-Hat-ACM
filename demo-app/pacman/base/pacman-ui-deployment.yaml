@@ -1,8 +1,9 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pacman-gitops # guestbook-ui
-  namespace: guestbook-ns
+  namespace: pacman-ns
 spec:
   replicas: 1
   revisionHistoryLimit: 3

@@ -1,8 +1,9 @@
+---
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: pacman-gitops
-  namespace: guestbook-ns
+  namespace: pacman-ns
   labels:
     app: pacman-gitops
 spec:

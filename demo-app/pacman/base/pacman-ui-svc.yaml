@@ -1,8 +1,9 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
   name: pacman-gitops # guestbook-ui
-  namespace: guestbook-ns
+  namespace: pacman-ns
 spec:
   ports:
   - port: 8080
