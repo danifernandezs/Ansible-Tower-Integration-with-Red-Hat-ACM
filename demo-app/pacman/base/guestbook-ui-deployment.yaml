@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pacman-gitops # guestbook-ui
+  namespace: guestbook-ns
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: pacman-gitops # guestbook-ui
+  template:
+    metadata:
+      labels:
+        app: pacman-gitops # guestbook-ui
+    spec:
+      containers:
+      - image: quay.io/redhat-scholars/pacman-kikd:1.0.0 # nginxinc/nginx-unprivileged:latest
+        name: pacman-gitops # guestbook-ui
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
