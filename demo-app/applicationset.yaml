@@ -1,0 +1,28 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: acm-ansible-demo-as
+  namespace: openshift-gitops
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/danifernandezs/Ansible-Tower-Integration-with-Red-Hat-ACM.git
+      revision: main
+      files:
+      - path: "demo-app/cluster-definition/**/cluster.json"
+  template:
+    metadata:
+      name: '{{cluster.name}}-demo-app'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/danifernandezs/Ansible-Tower-Integration-with-Red-Hat-ACM.git
+        targetRevision: main
+        path: demo-app/pacman/overlays/{{cluster.name}}
+      destination:
+        server: '{{cluster.address}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
