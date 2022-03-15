@@ -1,0 +1,9 @@
+{
+  "environment": "production",
+  "cloud": "aws",
+  "region": "ap-northeast-3",
+  "cluster": {
+    "name": "apac-production",
+    "address": "https://api.apac-managed.sandbox1864.opentlc.com:6443"
+  }
+}

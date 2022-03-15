@@ -1,0 +1,9 @@
+{
+  "environment": "development",
+  "cloud": "aws",
+  "region": "us-east-1",
+  "cluster": {
+    "name": "na-development",
+    "address": "https://api.na-managed.sandbox1864.opentlc.com:6443"
+  }
+}
