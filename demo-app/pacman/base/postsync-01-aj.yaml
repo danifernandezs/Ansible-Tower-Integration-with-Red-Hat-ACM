@@ -2,7 +2,7 @@
 apiVersion: tower.ansible.com/v1alpha1
 kind: AnsibleJob
 metadata:
-  generateName: pacman-posthook01-
+  name: pacman-posthook01
   namespace: ansible-automation-platform
   annotations:
     argocd.argoproj.io/hook: PostSync

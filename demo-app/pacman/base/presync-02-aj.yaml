@@ -2,7 +2,7 @@
 apiVersion: tower.ansible.com/v1alpha1
 kind: AnsibleJob
 metadata:
-  generateName: pacman-prehook02-
+  name: pacman-prehook02
   namespace: ansible-automation-platform
   annotations:
     argocd.argoproj.io/hook: PreSync
