@@ -1,0 +1,18 @@
+---
+apiVersion: tower.ansible.com/v1alpha1
+kind: AnsibleJob
+metadata:
+  generateName: pacman-prehook01-
+  namespace: ansible-automation-platform
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  tower_auth_secret: tower
+  job_template_name: ArgoCD PreHook
+  extra_vars:
+    triggered_by: ArgoCD
+    hook_order: 0
+    task: maintenance
+    env: base

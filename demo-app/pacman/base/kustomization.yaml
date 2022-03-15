@@ -7,3 +7,6 @@ resources:
 - pacman-ui-deployment.yaml
 - pacman-ui-route.yaml
 - pacman-ui-svc.yaml
+- presync-01-aj.yaml
+- presync-02-aj.yaml
+- postsync-01-aj.yaml
